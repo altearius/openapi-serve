@@ -8,13 +8,15 @@
     "pino": "^9.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20.14.2"
+    "@types/node": "^20.14.2",
+    "prettier": "^3.3.2"
   },
   "main": "dist/openapi-serve.js",
   "name": "@altearius/openapi-serve",
   "packageManager": "yarn@4.3.0",
   "scripts": {
     "build": "tsc --build src/tsconfig.json",
-    "clean": "node ./build/clean.js"
+    "clean": "node ./build/clean.js",
+    "pretty": "prettier . --check"
   }
 }
