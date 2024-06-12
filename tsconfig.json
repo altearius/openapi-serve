@@ -1,9 +1,10 @@
 {
+	"extends": "./tsconfig.base.json",
 	"exclude": ["src"],
 	"files": [],
 	"include": [],
 	"references": [
-		{ "path": "./src/tsconfig.app.json" },
-		{ "path": "./src/tsconfig.test.json" }
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.test.json" }
 	]
 }

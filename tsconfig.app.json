@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./src/app",
+		"outDir": "./dist/app",
+		"rootDir": "./src/app",
+		"tsBuildInfoFile": "./dist/app/.tsBuildInfo"
+	},
+	"extends": "./tsconfig.base.json",
+	"include": ["./src/app/**/*.ts"],
+	"exclude": ["./src/app/**/*.test.ts"]
+}
