@@ -1,4 +1,4 @@
-import { dereference } from '@bcherny/json-schema-ref-parser';
+import { dereference } from '@apidevtools/json-schema-ref-parser';
 import type { OpenAPIV3_1 } from 'openapi-types';
 import { OpenAPIV3 } from 'openapi-types';
 import ExtractOperationDetails from './ExtractOperationDetails.js';

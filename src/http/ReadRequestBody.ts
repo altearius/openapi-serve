@@ -8,7 +8,7 @@ export default async function ReadRequestBody(message: IncomingMessage) {
 
 	message.setEncoding('utf8');
 	for await (const chunk of message) {
-		body += chunk;
+		body += String(chunk);
 
 		if (body.length > sizeLimit) {
 			throw new HttpError(StatusCodes.REQUEST_TOO_LONG, 'Payload too large');
