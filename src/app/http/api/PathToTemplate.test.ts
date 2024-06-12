@@ -1,5 +1,6 @@
-import PathToTemplate from '#openapi-serve/http/api/PathToTemplate.js';
-import { describe, expect, it } from '@jest/globals';
+import PathToTemplate from '#app/http/api/PathToTemplate.js';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
 describe(PathToTemplate.name, () => {
 	it('creates regular expressions to match path templates', () => {
@@ -12,13 +13,11 @@ describe(PathToTemplate.name, () => {
 		const { identifiers, pattern } = PathToTemplate(path) ?? {};
 
 		// Assert
-		expect(pattern).toEqual(expected);
+		assert.equal(pattern, expected);
 
-		expect(identifiers).toEqual(
-			new Map([
-				['id0', 'userId'],
-				['id1', 'post-id']
-			])
-		);
+		assert.equal(identifiers, new Map([
+			['id0', 'userId'],
+			['id1', 'post-id']
+		]));
 	});
 });

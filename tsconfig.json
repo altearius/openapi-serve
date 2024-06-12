@@ -2,5 +2,8 @@
 	"exclude": ["src"],
 	"files": [],
 	"include": [],
-	"references": [{ "path": "./src" }]
+	"references": [
+		{ "path": "./src/tsconfig.app.json" },
+		{ "path": "./src/tsconfig.test.json" }
+	]
 }

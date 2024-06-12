@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./test",
+		"outDir": "../dist/test",
+		"paths": {
+			"#app/*": ["./app/*"],
+			"#test/*": ["./test/*"]
+		},
+		"rootDir": ".",
+		"tsBuildInfoFile": "../dist/test/.tsbuildinfo"
+	},
+	"extends": "./tsconfig.base.json",
+	"exclude": [],
+	"include": ["./test/**/*.ts", "./app/**/*.test.ts"],
+	"references": [{ "path": "./tsconfig.app.json" }]
+}

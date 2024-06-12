@@ -22,7 +22,7 @@
   "name": "@altearius/openapi-serve",
   "packageManager": "yarn@4.3.0",
   "scripts": {
-    "build": "tsc --build src/tsconfig.json",
+    "build": "tsc --build ./tsconfig.json",
     "clean": "node ./build/clean.js",
     "lint": "eslint .",
     "pretty": "prettier . --check"
