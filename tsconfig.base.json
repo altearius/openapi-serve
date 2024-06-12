@@ -1,0 +1,34 @@
+{
+	"compilerOptions": {
+		"allowArbitraryExtensions": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
+		"esModuleInterop": false,
+		"exactOptionalPropertyTypes": true,
+		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true,
+		"inlineSources": true,
+		"lib": ["ES2022"],
+		"module": "Node16",
+		"moduleResolution": "node16",
+		"newLine": "LF",
+		"noEmitOnError": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": false, // Handled by ESLint.
+		"noUnusedParameters": false, // Handled by ESLint.
+		"rootDir": ".",
+		"skipLibCheck": false,
+		"sourceMap": true,
+		"strict": true,
+		"target": "ES2022",
+		"typeRoots": ["./node_modules/@types"],
+		"types": ["node"],
+		"useUnknownInCatchVariables": true
+	},
+	"exclude": ["node_modules"]
+}
