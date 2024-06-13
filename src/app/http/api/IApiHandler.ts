@@ -71,7 +71,7 @@ type IApiHandler<
 		requestBody: {
 			content: { 'application/json': infer TRequestBody };
 		};
-	}
+	} | undefined
 		? TRequestBody
 		: never;
 	readonly url: URL;
