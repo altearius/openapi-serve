@@ -8,6 +8,7 @@
     "pino": "^9.2.0",
     "tslib": "^2.6.3"
   },
+  "description": "A simple OpenAPI 3.0 server",
   "devDependencies": {
     "@eslint/js": "^9.4.0",
     "@types/node": "^20.14.2",
@@ -25,6 +26,10 @@
   "main": "dist/app/openapi-serve.js",
   "name": "@altearius/openapi-serve",
   "packageManager": "yarn@4.3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/altearius/openapi-serve"
+  },
   "scripts": {
     "build": "tsc --build ./tsconfig.json",
     "clean": "node ./build/clean.js",
@@ -32,5 +37,6 @@
     "pretty": "prettier . --write",
     "test": "yarn build && node --test --enable-source-maps --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout \"./dist/test/**/*.test.js\""
   },
-  "type": "module"
+  "type": "module",
+  "version": "0.1.0"
 }

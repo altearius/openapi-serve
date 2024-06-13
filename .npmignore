@@ -1,0 +1,16 @@
+.editorconfig
+.gitattributes
+.github
+.prettierignore
+.prettierrc.yml
+.tsbuildinfo
+.vscode
+build
+dist/test
+dist/tsconfig.tsbuildinfo
+eslint.config.js
+src
+tsconfig.app.json
+tsconfig.base.json
+tsconfig.json
+tsconfig.test.json
