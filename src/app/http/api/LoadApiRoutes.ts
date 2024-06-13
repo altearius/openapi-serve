@@ -15,7 +15,7 @@ export default async function LoadApiRoutes(openApiPath: string): Promise<{
 		readonly pattern: RegExp;
 	}[];
 }> {
-	const doc = (await dereference(openApiPath)) as OpenAPIV3_1.Document;
+	const doc: OpenAPIV3_1.Document = (await dereference(openApiPath));
 	const staticRoutes = new Map();
 	const templates = [];
 
