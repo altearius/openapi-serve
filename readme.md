@@ -15,8 +15,6 @@ The server is responsible for these tasks:
 
 - Manging CORS headers.
 
-- Providing a Swagger UI for the OpenAPI document.
-
 ## Installation
 
 ```bash

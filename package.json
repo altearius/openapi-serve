@@ -22,14 +22,14 @@
     "#app/*": "./dist/app/*",
     "#test/*": "./dist/test/*"
   },
-  "main": "dist/openapi-serve.js",
+  "main": "dist/app/openapi-serve.js",
   "name": "@altearius/openapi-serve",
   "packageManager": "yarn@4.3.0",
   "scripts": {
     "build": "tsc --build ./tsconfig.json",
     "clean": "node ./build/clean.js",
     "lint": "eslint .",
-    "pretty": "prettier . --check",
+    "pretty": "prettier . --write",
     "test": "yarn build && node --test --enable-source-maps --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout \"./dist/test/**/*.test.js\""
   },
   "type": "module"

@@ -3,7 +3,11 @@ import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import tseslint from 'typescript-eslint';
 
-const tsProjects = ['./tsconfig.json', './src/tsconfig.json'];
+const tsProjects = [
+	'./tsconfig.json',
+	'./tsconfig.app.json',
+	'./tsconfig.test.json'
+];
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
@@ -11,7 +15,12 @@ const tsProjects = ['./tsconfig.json', './src/tsconfig.json'];
 const config = [
 	{
 		// Global ignores
-		ignores: ['assets/swagger-initializer.js', 'dist/']
+		ignores: [
+			'.yarn/',
+			'assets/swagger-initializer.js',
+			'dist/',
+			'node_modules/'
+		]
 	},
 
 	{
