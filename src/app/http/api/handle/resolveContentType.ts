@@ -1,60 +1,11 @@
+import type { ServerResponse } from 'http';
 import { StatusCodes } from 'http-status-codes';
-import type { ServerResponse } from 'node:http';
-import HttpError from '../HttpError.js';
-import type IApiHandler from './IApiHandler.js';
-import type IOperationDetails from './IOperationDetails.js';
+import HttpError from '../../HttpError.js';
+import type OperationDetails from '../ops/OperationDetails.js';
 
-export default function FinalizeResult(
+export default function resolveContentType(
 	response: ServerResponse,
-	result: Awaited<ReturnType<IApiHandler>>,
-	validContentTypes: IOperationDetails['responseTypes']
-) {
-	if (!isResult(result)) {
-		throw new HttpError(
-			StatusCodes.INTERNAL_SERVER_ERROR,
-			'Invalid handler result'
-		);
-	}
-
-	response.statusCode = result.statusCode;
-	result.headers?.forEach((value, key) => response.setHeader(key, value));
-
-	const contentType = resolveContentType(response, validContentTypes);
-	let body: Uint8Array | string;
-
-	if (contentType === 'application/json') {
-		body = JSON.stringify(result.body);
-	} else if (contentType.startsWith('image/')) {
-		if (!(result.body instanceof Uint8Array)) {
-			throw new HttpError(
-				StatusCodes.INTERNAL_SERVER_ERROR,
-				'Invalid image body'
-			);
-		}
-
-		({ body } = result);
-	} else {
-		body = String(result.body);
-	}
-
-	response.end(body);
-}
-
-function isResult(o: unknown): o is Awaited<ReturnType<IApiHandler>> {
-	if (typeof o !== 'object' || o === null) {
-		return false;
-	}
-
-	if (!('statusCode' in o) || typeof o.statusCode !== 'number') {
-		return false;
-	}
-
-	return true;
-}
-
-function resolveContentType(
-	response: ServerResponse,
-	allResponseTypes: IOperationDetails['responseTypes']
+	allResponseTypes: OperationDetails['responseTypes']
 ) {
 	const defaultContentType = 'application/json';
 	const responseTypes = allResponseTypes?.get(response.statusCode.toString());

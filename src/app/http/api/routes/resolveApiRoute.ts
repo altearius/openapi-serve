@@ -1,34 +1,28 @@
 import type { OpenAPIV3_1 } from 'openapi-types';
-import type ApiRoutes from '../ApiRoutes.js';
-import pathParameters from '../parameters/pathParameters.js';
-import matchUrlToApiRoute from './matchUrlToApiRoute.js';
-import type OperationWithPathParameters from './OperationWithPathParameters.js';
+import type ApiRoutes from './ApiRoutes.js';
+import matchDynamicRoute from './matchDynamicRoute.js';
+import type ResolvedOperation from './ResolvedOperation.js';
 
 export default function resolveApiRoute(
 	routes: ApiRoutes,
 	method: OpenAPIV3_1.HttpMethods,
 	url: URL
-): OperationWithPathParameters | undefined {
-	const pathName = url.pathname.toLowerCase();
-
-	const staticRoute = routes.staticRoutes.get(pathName);
+): ResolvedOperation | undefined {
+	const staticRoute = routes.staticRoutes.get(url.pathname.toLowerCase());
 	if (staticRoute) {
-		return staticRoute.get(method);
+		const operation = staticRoute.get(method);
+		return operation ? { operation } : undefined;
 	}
 
-	const dynamicRoute = matchUrlToApiRoute(routes.templates, method, url);
-	if (!dynamicRoute) {
-		return;
-	}
+	const dynamicRoute = matchDynamicRoute(routes.templates, method, url);
 
-	return {
-		...dynamicRoute.operation,
-		parameters: {
-			path: pathParameters(
-				dynamicRoute.templateValues,
-				dynamicRoute.operation,
-				dynamicRoute.identifiers
-			)
-		}
-	};
+	return dynamicRoute
+		? {
+				operation: dynamicRoute.operation,
+				dynamicRoute: {
+					pathIdentifiers: dynamicRoute.pathIdentifiers,
+					pathValues: dynamicRoute.pathValues
+				}
+			}
+		: undefined;
 }

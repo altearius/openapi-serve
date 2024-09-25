@@ -3,8 +3,8 @@ import { Server } from 'node:http';
 import type { Socket } from 'node:net';
 import { resolve } from 'node:path';
 import type { Logger } from 'pino';
-import type ApiRoutes from './api/ApiRoutes.js';
-import LoadApiRoutes from './api/LoadApiRoutes.js';
+import parseRoutes from './api/parse/parseRoutes.js';
+import type ApiRoutes from './api/routes/ApiRoutes.js';
 import handleRequest from './handle/handleRequest.js';
 
 interface OpenApiServerConfig {
@@ -54,7 +54,7 @@ export default class OpenApiServer extends Server {
 			config.log,
 			resolve(config.openApiPath),
 			resolve(config.operationRootPath),
-			await LoadApiRoutes(config.openApiPath),
+			await parseRoutes(config.openApiPath),
 			config.staticRoutes ?? new Map(),
 			config.validations ?? {}
 		);

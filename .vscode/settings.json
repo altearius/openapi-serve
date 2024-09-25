@@ -1,0 +1,72 @@
+{
+	"[typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "always",
+			"source.removeUnusedImports": "always",
+			"source.sortImports": "always"
+		},
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"eslint.rules.customizations": [
+		{
+			"rule": "@typescript-eslint/consistent-type-imports",
+			"severity": "off"
+		},
+		{
+			"rule": "@typescript-eslint/no-empty-function",
+			"severity": "off"
+		},
+		{
+			"rule": "@typescript-eslint/no-empty-interface",
+			"severity": "off"
+		},
+		{
+			"rule": "@typescript-eslint/no-extraneous-class",
+			"severity": "off"
+		},
+		{
+			"rule": "@typescript-eslint/no-unused-vars",
+			"severity": "off"
+		},
+		{
+			"rule": "@typescript-eslint/sort-type-constituents",
+			"severity": "off"
+		},
+		{
+			"rule": "max-lines-per-function",
+			"severity": "off"
+		},
+		{
+			"rule": "multiline-comment-style",
+			"severity": "off"
+		},
+		{
+			"rule": "sort-keys",
+			"severity": "off"
+		}
+	],
+	"eslint.useFlatConfig": true,
+	"files.associations": {
+		"yarn.lock": "yaml"
+	},
+	"javascript.preferences.importModuleSpecifier": "project-relative",
+	"javascript.preferences.importModuleSpecifierEnding": "js",
+	"javascript.preferences.quoteStyle": "single",
+	"npm.packageManager": "yarn",
+	"search.exclude": {
+		".yarn/**": true
+	},
+	"typescript.preferences.importModuleSpecifier": "project-relative",
+	"typescript.preferences.importModuleSpecifierEnding": "js",
+	"typescript.preferences.preferTypeOnlyAutoImports": true,
+	"typescript.preferences.quoteStyle": "single",
+	"typescript.tsc.autoDetect": "off",
+	"typescript.tsdk": "node_modules/typescript/lib"
+}

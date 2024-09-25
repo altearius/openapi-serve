@@ -1,9 +1,6 @@
-import type { OpenAPIV3_1 } from 'openapi-types';
+import type { ParameterTypes } from '../parameters/Types.js';
 
-type ParameterType = NonNullable<OpenAPIV3_1.SchemaObject['type']>;
-type ParameterTypes = ReadonlyMap<string, ParameterType>;
-
-export default interface IOperationDetails {
+export default interface OperationDetails {
 	readonly operationId: string;
 	readonly parameterTypes?: {
 		readonly cookie?: ParameterTypes;

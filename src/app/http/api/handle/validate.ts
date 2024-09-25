@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
-import HttpError from '../HttpError.js';
-import type OpenApiServer from '../OpenApiServer.js';
+import HttpError from '../../HttpError.js';
+import type OpenApiServer from '../../OpenApiServer.js';
 
-export default function Validate(
+export default function validate(
 	server: OpenApiServer,
 	validationId: string | undefined,
 	object: unknown

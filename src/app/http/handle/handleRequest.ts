@@ -1,11 +1,11 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import ApplyCors from '../ApplyCors.js';
 import type OpenApiServer from '../OpenApiServer.js';
-import handleApiRequest from './handleApiRequest.js';
+import handleApiRequest from '../api/handle/handleApiRequest.js';
+import handleStaticRoute from '../static/handleStaticRoute.js';
 import handleError from './handleError.js';
 import handleNotFound from './handleNotFound.js';
 import handlePreflight from './handlePreflight.js';
-import handleStaticRoute from './handleStaticRoute.js';
 
 export default async function handleRequest(
 	server: OpenApiServer,

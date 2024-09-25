@@ -59,24 +59,7 @@ type IApiHandler<
 	} = never,
 	TPath extends keyof TOperations = never
 > = (context: {
-	readonly message: IncomingMessage;
-	readonly parameters: {
-		readonly header: TOperations[TPath] extends {
-			parameters: {
-				header: infer THeaderParameters;
-			};
-		}
-			? THeaderParameters
-			: never;
-		readonly path: TOperations[TPath] extends {
-			parameters: {
-				path: infer TPathParameters;
-			};
-		}
-			? TPathParameters
-			: never;
-	};
-	readonly requestBody: TOperations[TPath] extends
+	readonly body: TOperations[TPath] extends
 		| {
 				requestBody: {
 					content: { 'application/json': infer TRequestBody };
@@ -85,6 +68,24 @@ type IApiHandler<
 		| undefined
 		? TRequestBody
 		: never;
+	readonly message: IncomingMessage;
+
+	readonly parameters: TOperations[TPath] extends {
+		parameters: {
+			cookie?: infer TCookieParameters;
+			header?: infer THeaderParameters;
+			path?: infer TPathParameters;
+			query?: infer TQueryParameters;
+		};
+	}
+		? {
+				cookie?: TCookieParameters;
+				header?: THeaderParameters;
+				path?: TPathParameters;
+				query?: TQueryParameters;
+			}
+		: {};
+
 	readonly url: URL;
 }) => Promise<Response<TOperations, TPath>>;
 

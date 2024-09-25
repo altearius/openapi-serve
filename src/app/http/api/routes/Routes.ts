@@ -1,7 +1,7 @@
 import type { OpenAPIV3_1 } from 'openapi-types';
-import type IOperationDetails from '../IOperationDetails.js';
+import type OperationDetails from '../ops/OperationDetails.js';
 
-type Operations = ReadonlyMap<OpenAPIV3_1.HttpMethods, IOperationDetails>;
+type Operations = ReadonlyMap<OpenAPIV3_1.HttpMethods, OperationDetails>;
 
 export default interface Routes {
 	readonly staticRoutes: ReadonlyMap<string, Operations>;

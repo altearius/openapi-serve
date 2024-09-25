@@ -1,6 +1,6 @@
 import type { OpenAPIV3_1 } from 'openapi-types';
 
-export default function IsOpenApiMethod(
+export default function isOpenApiMethod(
 	method: string | undefined
 ): method is OpenAPIV3_1.HttpMethods {
 	return (

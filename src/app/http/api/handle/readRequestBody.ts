@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import type { IncomingMessage } from 'node:http';
-import HttpError from './HttpError.js';
+import HttpError from '../../HttpError.js';
 
-export default async function ReadRequestBody(message: IncomingMessage) {
+export default async function readRequestBody(message: IncomingMessage) {
 	const sizeLimit = 1000000;
 	let body = '';
 

@@ -1,10 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
 import { resolve } from 'node:path';
-import HttpError from '../HttpError.js';
-import type OpenApiServer from '../OpenApiServer.js';
-import type IApiHandler from './IApiHandler.js';
+import HttpError from '../../HttpError.js';
+import type OpenApiServer from '../../OpenApiServer.js';
+import type IApiHandler from '../IApiHandler.js';
 
-export default async function LoadApiHandler(
+export default async function loadOperation(
 	server: OpenApiServer,
 	operationId: string
 ) {

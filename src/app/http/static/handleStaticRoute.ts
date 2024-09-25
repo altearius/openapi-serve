@@ -2,13 +2,13 @@ import { StatusCodes } from 'http-status-codes';
 import { createReadStream } from 'node:fs';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import ExtractUrl from '../ExtractUrl.js';
+import handleError from '../handle/handleError.js';
+import handleNotFound from '../handle/handleNotFound.js';
 import type OpenApiServer from '../OpenApiServer.js';
-import createETag from '../static/createETag.js';
-import GetMimeType from '../static/GetMimeType.js';
-import matchUrlToStaticRoute from '../static/matchUrlToStaticRoute.js';
-import resolveLastModified from '../static/resolveLastModified.js';
-import handleError from './handleError.js';
-import handleNotFound from './handleNotFound.js';
+import createETag from './createETag.js';
+import GetMimeType from './GetMimeType.js';
+import matchUrlToStaticRoute from './matchUrlToStaticRoute.js';
+import resolveLastModified from './resolveLastModified.js';
 
 export default async function handleStaticRoute(
 	server: OpenApiServer,

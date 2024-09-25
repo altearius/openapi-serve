@@ -1,9 +1,6 @@
-export default function PathToTemplate(path: string):
-	| {
-			readonly identifiers: ReadonlyMap<string, string>;
-			readonly pattern: RegExp;
-	  }
-	| undefined {
+import type ParsedPath from './ParsedPath.js';
+
+export default function parsePath(path: string): ParsedPath | undefined {
 	const templateMatch = /\{(?<name>[^}]*?)\}/gu;
 	const reEscape = /[\\^$*+?.()|[\]{}]/gu;
 	const segments = [];
