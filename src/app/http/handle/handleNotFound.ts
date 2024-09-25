@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import type OpenApiServer from './OpenApiServer.js';
+import type OpenApiServer from '../OpenApiServer.js';
 
-export default function HandleNotFound(
+export default function handleNotFound(
 	server: OpenApiServer,
 	message: IncomingMessage,
 	response: ServerResponse

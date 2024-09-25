@@ -60,18 +60,29 @@ type IApiHandler<
 	TPath extends keyof TOperations = never
 > = (context: {
 	readonly message: IncomingMessage;
-	readonly pathParameters: TOperations[TPath] extends {
-		parameters: {
-			path: infer TPathParameters;
-		};
-	}
-		? TPathParameters
-		: never;
-	readonly requestBody: TOperations[TPath] extends {
-		requestBody: {
-			content: { 'application/json': infer TRequestBody };
-		};
-	} | undefined
+	readonly parameters: {
+		readonly header: TOperations[TPath] extends {
+			parameters: {
+				header: infer THeaderParameters;
+			};
+		}
+			? THeaderParameters
+			: never;
+		readonly path: TOperations[TPath] extends {
+			parameters: {
+				path: infer TPathParameters;
+			};
+		}
+			? TPathParameters
+			: never;
+	};
+	readonly requestBody: TOperations[TPath] extends
+		| {
+				requestBody: {
+					content: { 'application/json': infer TRequestBody };
+				};
+		  }
+		| undefined
 		? TRequestBody
 		: never;
 	readonly url: URL;

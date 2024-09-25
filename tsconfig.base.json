@@ -22,7 +22,7 @@
 		"noUnusedLocals": false, // Handled by ESLint.
 		"noUnusedParameters": false, // Handled by ESLint.
 		"rootDir": ".",
-		"skipLibCheck": false,
+		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
 		"target": "ES2022",

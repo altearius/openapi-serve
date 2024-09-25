@@ -1,10 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { inspect } from 'node:util';
-import HttpError from './HttpError.js';
-import type OpenApiServer from './OpenApiServer.js';
+import HttpError from '../HttpError.js';
+import type OpenApiServer from '../OpenApiServer.js';
 
-export default function HandleError(
+export default function handleError(
 	server: OpenApiServer,
 	message: IncomingMessage,
 	response: ServerResponse,

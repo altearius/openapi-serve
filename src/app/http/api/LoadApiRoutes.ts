@@ -1,20 +1,12 @@
 import { dereference } from '@apidevtools/json-schema-ref-parser';
 import type { OpenAPIV3_1 } from 'openapi-types';
 import { OpenAPIV3 } from 'openapi-types';
+import type ApiRoutes from './ApiRoutes.js';
 import ExtractOperationDetails from './ExtractOperationDetails.js';
 import type IOperationDetails from './IOperationDetails.js';
 import PathToTemplate from './PathToTemplate.js';
 
-type MethodMap = ReadonlyMap<OpenAPIV3.HttpMethods, IOperationDetails>;
-
-export default async function LoadApiRoutes(openApiPath: string): Promise<{
-	readonly staticRoutes: ReadonlyMap<string, MethodMap>;
-	readonly templates: {
-		readonly operations: MethodMap;
-		readonly identifiers: ReadonlyMap<string, string>;
-		readonly pattern: RegExp;
-	}[];
-}> {
+export default async function LoadApiRoutes(openApiPath: string): Promise<ApiRoutes> {
 	const doc: OpenAPIV3_1.Document = (await dereference(openApiPath));
 	const staticRoutes = new Map();
 	const templates = [];

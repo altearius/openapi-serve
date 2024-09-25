@@ -1,30 +1,29 @@
 import { StatusCodes } from 'http-status-codes';
-import crypto from 'node:crypto';
-import type { Stats } from 'node:fs';
 import { createReadStream } from 'node:fs';
-import { stat } from 'node:fs/promises';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import ExtractUrl from '../ExtractUrl.js';
-import HandleError from '../HandleError.js';
-import HandleNotFound from '../HandleNotFound.js';
 import type OpenApiServer from '../OpenApiServer.js';
-import GetMimeType from './GetMimeType.js';
-import ResolveStaticRoute from './ResolveStaticRoute.js';
+import createETag from '../static/createETag.js';
+import GetMimeType from '../static/GetMimeType.js';
+import matchUrlToStaticRoute from '../static/matchUrlToStaticRoute.js';
+import resolveLastModified from '../static/resolveLastModified.js';
+import handleError from './handleError.js';
+import handleNotFound from './handleNotFound.js';
 
-export default async function StaticRouteHandler(
+export default async function handleStaticRoute(
 	server: OpenApiServer,
 	message: IncomingMessage,
 	response: ServerResponse
 ) {
 	const url = ExtractUrl(message);
-	const resolvedPath = ResolveStaticRoute(server, url.pathname);
+	const resolvedPath = matchUrlToStaticRoute(server, url);
 	if (!resolvedPath) {
 		return false;
 	}
 
 	const lastModified = await resolveLastModified(resolvedPath);
 	if (lastModified === null) {
-		HandleNotFound(server, message, response);
+		handleNotFound(server, message, response);
 		return true;
 	}
 
@@ -49,41 +48,13 @@ export default async function StaticRouteHandler(
 		stream.destroy();
 
 		if ('code' in ex && ex.code === 'ENOENT') {
-			HandleNotFound(server, message, response);
+			handleNotFound(server, message, response);
 		} else {
-			HandleError(server, message, response, ex);
+			handleError(server, message, response, ex);
 		}
 	});
 
 	return true;
-}
-
-async function resolveLastModified(resolvedPath: string) {
-	let stats: Stats;
-
-	try {
-		stats = await stat(resolvedPath);
-	} catch (ex: unknown) {
-		if (
-			typeof ex === 'object' &&
-			ex !== null &&
-			'code' in ex &&
-			ex.code === 'ENOENT'
-		) {
-			return null;
-		}
-
-		throw ex;
-	}
-
-	return stats.mtime.toUTCString();
-}
-
-function createETag(resolvedPath: string, lastModified: string) {
-	return crypto
-		.createHash('md5')
-		.update(`${resolvedPath}-${lastModified}`)
-		.digest('hex');
 }
 
 function handleCacheHit(

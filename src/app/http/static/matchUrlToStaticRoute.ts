@@ -3,9 +3,9 @@ import type OpenApiServer from '../OpenApiServer.js';
 
 const openApiRoute = /^\/open-api\/(?<relative>.+)\.yaml$/iu;
 
-export default function ResolveStaticRoute(
+export default function matchUrlToStaticRoute(
 	server: OpenApiServer,
-	pathname: string
+	{ pathname }: URL
 ): string | undefined {
 	return (
 		matchRouteCollection(pathname, server.staticRoutes) ??

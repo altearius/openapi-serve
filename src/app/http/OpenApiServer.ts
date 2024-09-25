@@ -1,16 +1,11 @@
-import type { DataValidationCxt } from 'ajv/dist/types/index.js';
+import type { ValidateFunction } from 'ajv/dist/types/index.js';
 import { Server } from 'node:http';
 import type { Socket } from 'node:net';
 import { resolve } from 'node:path';
 import type { Logger } from 'pino';
-import Route from './Route.js';
+import type ApiRoutes from './api/ApiRoutes.js';
 import LoadApiRoutes from './api/LoadApiRoutes.js';
-
-type ValidateFunction = (
-	this: unknown,
-	data: unknown,
-	dataCxt?: DataValidationCxt
-) => boolean;
+import handleRequest from './handle/handleRequest.js';
 
 interface OpenApiServerConfig {
 	readonly allowedOrigins?: readonly RegExp[];
@@ -31,13 +26,13 @@ export default class OpenApiServer extends Server {
 		public readonly log: Logger<string> | undefined,
 		public readonly openApiPath: string,
 		public readonly operationRootPath: string,
-		public readonly routes: Awaited<ReturnType<typeof LoadApiRoutes>>,
+		public readonly routes: ApiRoutes,
 		public readonly staticRoutes: ReadonlyMap<RegExp, string>,
 		public readonly validations: Readonly<Record<string, ValidateFunction>>
 	) {
 		super((message, response) => {
 			response.setHeader('X-Clacks-Overhead', 'GNU Terry Pratchett');
-			void Route(this, message, response);
+			void handleRequest(this, message, response);
 		});
 
 		// Need to capture `connections` in a closure for the following lambda.
