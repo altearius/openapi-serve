@@ -1,7 +1,7 @@
 import type { OpenAPIV3_1 } from 'openapi-types';
 import type OperationDetails from './OperationDetails.js';
 import extractContentTypes from './extractContentTypes.js';
-import extractPathParameterTypes from './extractPathParameterTypes.js';
+import extractParameterTypes from './extractParameterTypes.js';
 
 export type ISchemaType = NonNullable<OpenAPIV3_1.SchemaObject['type']>;
 
@@ -14,10 +14,10 @@ export default function extractOperationDetails(
 		return;
 	}
 
-	const pathParameterTypes = extractPathParameterTypes(pathItem, operation);
+	const parameterTypes = extractParameterTypes(pathItem, operation);
 
 	const result: OperationDetails = {
-		...(pathParameterTypes ? { pathParameterTypes } : {}),
+		...(parameterTypes ? { parameterTypes } : {}),
 		...extractContentTypes(responses),
 		operationId
 	};

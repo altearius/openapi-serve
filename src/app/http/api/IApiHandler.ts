@@ -53,37 +53,37 @@ type Response<
 					};
 		}[keyof TOperations[TPath]['responses']];
 
+type RequestBody<
+	TOperations extends {
+		readonly [TPath in keyof TOperations]: Responses;
+	},
+	TPath extends keyof TOperations
+> = TOperations[TPath] extends
+	| {
+			requestBody: {
+				content: {
+					'application/json': infer TRequestBody;
+				};
+			};
+	  }
+	| undefined
+	? TRequestBody
+	: never;
+
 type IApiHandler<
 	TOperations extends {
 		readonly [TPath in keyof TOperations]: Responses;
 	} = never,
 	TPath extends keyof TOperations = never
 > = (context: {
-	readonly body: TOperations[TPath] extends
-		| {
-				requestBody: {
-					content: { 'application/json': infer TRequestBody };
-				};
-		  }
-		| undefined
-		? TRequestBody
-		: never;
+	readonly body: RequestBody<TOperations, TPath>;
+
 	readonly message: IncomingMessage;
 
 	readonly parameters: TOperations[TPath] extends {
-		parameters: {
-			cookie?: infer TCookieParameters;
-			header?: infer THeaderParameters;
-			path?: infer TPathParameters;
-			query?: infer TQueryParameters;
-		};
+		readonly parameters: infer TParameters;
 	}
-		? {
-				cookie?: TCookieParameters;
-				header?: THeaderParameters;
-				path?: TPathParameters;
-				query?: TQueryParameters;
-			}
+		? TParameters
 		: {};
 
 	readonly url: URL;

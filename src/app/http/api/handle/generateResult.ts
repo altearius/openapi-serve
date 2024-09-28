@@ -28,8 +28,11 @@ export default async function generateResult(
 		readRequestBody(message)
 	]);
 
+	type handlerParameters = Parameters<typeof handler>[0]['parameters'];
+	const validatedParameters = parameters as handlerParameters;
+
 	return (
 		validate(server, op.validationId, body) ??
-		(await handler({ body, message, parameters, url }))
+		(await handler({ body, message, parameters: validatedParameters, url }))
 	);
 }

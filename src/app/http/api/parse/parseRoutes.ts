@@ -27,7 +27,7 @@ export default async function parseRoutes(
 				throw new Error(`Duplicate static route "${lcName}"`);
 			}
 
-			staticRoutes.set(name.toLowerCase(), operations);
+			staticRoutes.set(lcName, operations);
 			continue;
 		}
 
