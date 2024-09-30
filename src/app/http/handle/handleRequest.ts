@@ -17,6 +17,10 @@ export default async function handleRequest(
 			return;
 		}
 
+		if (await server.handleSecurity?.(server, message, response)) {
+			return;
+		}
+
 		ApplyCors(server, message, response);
 
 		if (await handleApiRequest(server, message, response)) {

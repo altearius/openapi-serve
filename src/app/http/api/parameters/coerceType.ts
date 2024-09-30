@@ -14,6 +14,6 @@ export default function coerceType(
 		case 'boolean':
 			return value === 'true';
 		default:
-			throw new Error(`Unknown type '${type}'`);
+			throw new Error(`Unknown type '${String(type)}'`);
 	}
 }

@@ -18,11 +18,11 @@ export default function resolveApiRoute(
 
 	return dynamicRoute
 		? {
-				operation: dynamicRoute.operation,
 				dynamicRoute: {
 					pathIdentifiers: dynamicRoute.pathIdentifiers,
 					pathValues: dynamicRoute.pathValues
-				}
+				},
+				operation: dynamicRoute.operation
 			}
 		: undefined;
 }

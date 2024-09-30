@@ -1,5 +1,5 @@
-import type { Ajv, ErrorObject } from 'ajv';
-import { Server } from 'node:http';
+import type { ErrorObject } from 'ajv';
+import { Server, type IncomingMessage, type ServerResponse } from 'node:http';
 import type { Socket } from 'node:net';
 import { resolve } from 'node:path';
 import type { Logger } from 'pino';
@@ -18,12 +18,19 @@ import handleRequest from './handle/handleRequest.js';
 // functions are designed to be imported from a `.cjs` file, which do not yield
 // type predicates.
 interface ValidationFn {
-	(this: Ajv | any, data: unknown): boolean;
-	errors?: null | ErrorObject[];
+	(data: unknown): boolean;
+	errors?: ErrorObject[] | null;
 }
+
+type SecurityHandler = (
+	server: OpenApiServer,
+	message: IncomingMessage,
+	response: ServerResponse
+) => Promise<boolean>;
 
 interface OpenApiServerConfig {
 	readonly allowedOrigins?: readonly RegExp[];
+	readonly handleSecurity?: SecurityHandler | undefined;
 	readonly hostname?: string;
 	readonly log?: Logger<string>;
 	readonly openApiPath: string;
@@ -38,6 +45,7 @@ export default class OpenApiServer extends Server {
 
 	private constructor(
 		public readonly allowedOrigins: readonly RegExp[],
+		public readonly handleSecurity: SecurityHandler | undefined,
 		public readonly log: Logger<string> | undefined,
 		public readonly openApiPath: string,
 		public readonly operationRootPath: string,
@@ -66,6 +74,7 @@ export default class OpenApiServer extends Server {
 	): Promise<OpenApiServer> {
 		const server = new OpenApiServer(
 			config.allowedOrigins ?? [/^https?:\/\/localhost:\d+$/iu],
+			config.handleSecurity,
 			config.log,
 			resolve(config.openApiPath),
 			resolve(config.operationRootPath),
@@ -77,9 +86,7 @@ export default class OpenApiServer extends Server {
 		return server;
 	}
 
-	public override close(
-		callback?: ((err?: Error | undefined) => void) | undefined
-	) {
+	public override close(callback?: (err?: Error) => void) {
 		const { size } = this.#openSockets;
 
 		if (size === 0) {

@@ -127,7 +127,6 @@ const config = [
 			'@typescript-eslint/no-meaningless-void-operator': 'error',
 			'@typescript-eslint/no-require-imports': 'error',
 			'@typescript-eslint/no-shadow': 'error',
-			'@typescript-eslint/no-throw-literal': 'error',
 			'@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
 			'@typescript-eslint/no-unused-vars': [
 				'error',
@@ -171,7 +170,6 @@ const config = [
 			],
 
 			'no-shadow': 'off',
-			'no-throw-literal': 'off',
 			'no-undef': 'off',
 			'no-useless-constructor': 'off',
 			'prefer-destructuring': 'off'

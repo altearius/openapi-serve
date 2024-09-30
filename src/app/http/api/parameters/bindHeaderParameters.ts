@@ -1,4 +1,4 @@
-import { IncomingMessage } from 'node:http';
+import type { IncomingMessage } from 'node:http';
 import type OperationDetails from '../ops/OperationDetails.js';
 import bindMultiValueDataSource from './bindMultiValueDataSource.js';
 

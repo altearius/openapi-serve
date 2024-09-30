@@ -84,7 +84,7 @@ type IApiHandler<
 		readonly parameters: infer TParameters;
 	}
 		? TParameters
-		: {};
+		: object;
 
 	readonly url: URL;
 }) => Promise<Response<TOperations, TPath>>;
